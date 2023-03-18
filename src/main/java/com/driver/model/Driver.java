@@ -58,6 +58,10 @@ public class Driver {
         this.tripBookingList = tripBookingList;
     }
 
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
     @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
     Cab cab;
 

@@ -28,6 +28,14 @@ public class Admin {
         return username;
     }
 
+    public int getAdminId() {
+        return AdminId;
+    }
+
+    public void setAdminId(int adminId) {
+        AdminId = adminId;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
