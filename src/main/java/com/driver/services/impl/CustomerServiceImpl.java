@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
 		for (Driver driver1 : driverList){
 			if(driver1.getCab().getAvailable()){
 				//if(driver1.getDriverId() < min){
-				driver.getCab().setAvailable(false);
+				driver1.getCab().setAvailable(false);
 				driver = driver1;
 				break;//min = driver1.getDriverId();
 			}
