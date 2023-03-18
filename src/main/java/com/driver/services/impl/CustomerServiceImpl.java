@@ -52,17 +52,17 @@ public class CustomerServiceImpl implements CustomerService {
 //			driverList.add(tripBooking1.getDriver());
 //		}
 		Driver driver = null;
-		int min = Integer.MIN_VALUE;
+		//int min = Integer.MIN_VALUE;
 		for (Driver driver1 : driverList){
 			if(driver1.getCab().getAvailable()){
-				if(driver1.getDriverId() < min){
-					driver = driver1;
-					min = driver1.getDriverId();
-				}
+				//if(driver1.getDriverId() < min){
+				driver.getCab().setAvailable(false);
+				driver = driver1;
+				break;//min = driver1.getDriverId();
 			}
 		}
 		if(driver == null) throw new Exception("No cab available!");
-		driver.getCab().setAvailable(false);
+//		driver.getCab().setAvailable(false);
 		tripBooking.setDriver(driver);
 		tripBooking.setCustomer(customer);
 		tripBooking.setStatus(TripStatus.CONFIRMED);
