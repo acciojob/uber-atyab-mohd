@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
 //			driverList.add(tripBooking1.getDriver());
 //		}
 		Driver driver = null;
-		int min = Integer.MIN_VALUE;
+		int min = Integer.MAX_VALUE;
 		for (Driver driver1 : driverList) {
 			if (driver1.getCab().getAvailable()) {
 				if (driver1.getDriverId() < min) {
