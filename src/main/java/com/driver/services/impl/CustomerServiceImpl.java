@@ -52,33 +52,36 @@ public class CustomerServiceImpl implements CustomerService {
 //			driverList.add(tripBooking1.getDriver());
 //		}
 		Driver driver = null;
-		//int min = Integer.MIN_VALUE;
-		for (Driver driver1 : driverList){
-			if(driver1.getCab().getAvailable()){
-				//if(driver1.getDriverId() < min){
-				driver1.getCab().setAvailable(false);
-				driver = driver1;
-				break;//min = driver1.getDriverId();
+		int min = Integer.MIN_VALUE;
+		for (Driver driver1 : driverList) {
+			if (driver1.getCab().getAvailable()) {
+				if (driver1.getDriverId() < min) {
+					driver = driver1;
+					min = driver1.getDriverId();
+				}
 			}
 		}
-		if(driver == null) {
-			throw new Exception("No value present");
+		if(driver != null){
+			driver.getCab().setAvailable(false);
+			tripBooking.setDriver(driver);
+			tripBooking.setCustomer(customer);
+			tripBooking.setStatus(TripStatus.CONFIRMED);
+			tripBooking.setFromLocation(fromLocation);
+			tripBooking.setToLocation(toLocation);
+			tripBooking.setDistanceInKm(distanceInKm);
+			List<TripBooking> customerTripBookingList = customer.getTripBookingList();
+			customerTripBookingList.add(tripBooking);
+			List<TripBooking> driverTripBookingList = driver.getTripBookingList();
+			driverTripBookingList.add(tripBooking);
+			customerRepository2.save(customer);
+			driverRepository2.save(driver);
+			return tripBooking;
+		}
+		else {
+			throw new Exception("No cab available!");
 			//return tripBooking;
 		}
-//		driver.getCab().setAvailable(false);
-		tripBooking.setDriver(driver);
-		tripBooking.setCustomer(customer);
-		tripBooking.setStatus(TripStatus.CONFIRMED);
-		tripBooking.setFromLocation(fromLocation);
-		tripBooking.setToLocation(toLocation);
-		tripBooking.setDistanceInKm(distanceInKm);
-		List<TripBooking> customerTripBookingList = customer.getTripBookingList();
-		customerTripBookingList.add(tripBooking);
-		List<TripBooking> driverTripBookingList = driver.getTripBookingList();
-		driverTripBookingList.add(tripBooking);
-		customerRepository2.save(customer);
-		driverRepository2.save(driver);
-		return tripBooking;
+
 
 	}
 
