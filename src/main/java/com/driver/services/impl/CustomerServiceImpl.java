@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 				}
 			}
 		}
-		if(driver != null){
+		if(min < Integer.MAX_VALUE && driver != null){
 			driver.getCab().setAvailable(false);
 			tripBooking.setDriver(driver);
 			tripBooking.setCustomer(customer);
@@ -69,6 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
 			tripBooking.setFromLocation(fromLocation);
 			tripBooking.setToLocation(toLocation);
 			tripBooking.setDistanceInKm(distanceInKm);
+			tripBooking.setBill(driver.getCab().getPerKmRate() * distanceInKm);
 			List<TripBooking> customerTripBookingList = customer.getTripBookingList();
 			customerTripBookingList.add(tripBooking);
 			List<TripBooking> driverTripBookingList = driver.getTripBookingList();
